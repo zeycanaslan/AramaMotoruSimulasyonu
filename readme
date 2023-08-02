@@ -13,18 +13,24 @@ def giris_sifresi():
         # Şifreyi doğrulayın
         if girilen_sifre=="zeycoo":
             messagebox.showinfo("Bilgi", f"Girdiğiniz sifre: {girilen_sifre}")
+            giris_kutusu.destroy()
 
             def open_url():  # girilmiş url yi açar
                 url = text_input.get("1.0", "end")
                 if url:
                     webbrowser.open(url)
 
-            def callback(url):
+            def callback(url):  # hızlı giriş için
                 if url:
                     webbrowser.open_new(url)
 
             def temizle():
                 text_input.delete("1.0", "end")
+
+            def readme():
+                with open("readme","r",encoding="UTF-8") as file:
+                    a=file.read()
+                    print(a)
 
 
             label = tkinter.Label(text="Girmek istediğiniz siteyi giriniz.", font="Arial 20", background="pink")
@@ -55,22 +61,22 @@ def giris_sifresi():
             twitter.pack(anchor="w", pady=10)
 
 
-            readme=tkinter.Button(text="Sayfa Kodları",command=)
+            readme=tkinter.Button(text="Sayfa Kodları",command=readme)
             readme.pack()
 
 
 
 
         else:
-            messagebox.showwarning("Uyarı", "Lütfen metin giriniz.")
-        giris_kutusu.destroy()
+            messagebox.showwarning("Uyarı",f"Girdiğiniz sifre: {girilen_sifre}. Lütfen doğru şifreyi giriniz.")
 
 
     giris_kutusu = tkinter.Toplevel(ekran)
+    giris_kutusu.geometry("200x200")
     giris_kutusu.title("Arama yapabilmek için giriş yap")
 
     # Giriş kutucuğunu oluşturun
-    entry = tkinter.Entry(giris_kutusu)
+    entry = tkinter.Entry(giris_kutusu,show="*")
     entry.pack(padx=30, pady=30)
 
     tamam_butonu = tkinter.Button(giris_kutusu, text="Tamam", command=tamam)
@@ -81,16 +87,18 @@ def giris_sifresi():
     ekran.wait_window(giris_kutusu)  # İletişim kutusu kapatılana kadar ana pencereyi beklet
 
 
+
 # Ana pencereyi oluşturun
 ekran = tkinter.Tk()
-ekran.geometry("450x450")
+ekran.geometry("600x600")
 ekran.title("Arama Motoru")
 ekran.configure(background="lightblue")
 
-# Giriş şifresi düğmesini oluşturun
-giris_sifresi_goster_butonu = tkinter.Button(ekran, text="Özel İletişim Kutusunu Göster", command=giris_sifresi())
-giris_sifresi_goster_butonu.pack(pady=20)
 
+
+# Giriş şifresi düğmesini oluşturun
+girisi_goster_butonu = tkinter.Button(ekran, text="Özel İletişim Kutusunu Göster", command=giris_sifresi())
+girisi_goster_butonu.pack(pady=20)
 
 ekran.mainloop()
 
@@ -99,7 +107,7 @@ ekran.mainloop()
 """
 Entry (Giriş) Widget:
 Entry (Giriş) widget'ı, tek satırlık metin girişi için kullanılır.
-Bu widget, yalnızca bir satır metni işlemek üzere tasarlanmıştır
+Bu widget, yalnızca bir satır metni işlemek üzere tasarlanmıştır 
 ve bu nedenle get() metoduna herhangi bir pozisyonel argüman gerekmez.
 
 get() metodu Text widget'ında iki pozisyonel argüman gerektirir: başlangıç dizini ve bitiş dizini.
